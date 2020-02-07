@@ -414,8 +414,7 @@ const remove: {
 			}
 		}
 
-		const [deleted] = await storage.delete(modelConstructor, condition);
-
+		const [models, deleted] = await storage.delete(modelConstructor, condition);
 		return deleted;
 	} else {
 		const model = modelOrConstructor;
