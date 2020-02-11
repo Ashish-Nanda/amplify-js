@@ -84,16 +84,13 @@ class AsyncStorageAdapter implements Adapter {
 		} catch (error) {
 			this.reject(error);
 		}
-		const allkeys = await AsyncStorage.getAllKeys();
-		const allValues = await AsyncStorage.multiGet(allkeys);
-		console.log(allValues);
 	}
 
 	async save<T extends PersistentModel>(
 		model: T,
 		condition?: ModelPredicate<T>
 	): Promise<[T, OpType.INSERT | OpType.UPDATE][]> {
-		console.warn('IN SAVE RN ASYNC');
+		console.warn('IN SAVE RN ASYNCSTORAGE');
 		const modelConstructor = Object.getPrototypeOf(model)
 			.constructor as PersistentModelConstructor<T>;
 		const storeName = this.getStorenameForModel(modelConstructor);

@@ -35,6 +35,7 @@ class AsyncStorageDatabase {
 		const collectionForStoreAsString = await AsyncStorage.getItem(storeKey);
 		const collectionForStore = JSON.parse(collectionForStoreAsString);
 		const collection = collectionForStore || [];
+		console.log('COLLECTION_Q1', collection, storeName);
 		const itemKey =
 			firstOrLast === QueryOne.FIRST
 				? collection[0]
@@ -42,7 +43,7 @@ class AsyncStorageDatabase {
 		const result = itemKey
 			? JSON.parse(await AsyncStorage.getItem(itemKey))
 			: undefined;
-		console.log('Query_One_Result', firstOrLast, itemKey);
+		console.log('Query_One_Result', firstOrLast, itemKey, result);
 		return result;
 	}
 
@@ -65,6 +66,12 @@ class AsyncStorageDatabase {
 
 	async delete(id: string, storeName: string) {
 		const itemKey = this.getKeyForItem(storeName, id);
+		const storeKey = this.getKeyForStore(storeName);
+		const collectionForStoreAsString = await AsyncStorage.getItem(storeKey);
+		const collectionForStore = JSON.parse(collectionForStoreAsString);
+		const collection = collectionForStore || [];
+		collection.splice(collection.indexOf(itemKey), 1);
+		await AsyncStorage.setItem(storeKey, JSON.stringify(collection));
 		await AsyncStorage.removeItem(itemKey);
 	}
 	/**
