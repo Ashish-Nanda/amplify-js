@@ -90,7 +90,7 @@ class AsyncStorageAdapter implements Adapter {
 		model: T,
 		condition?: ModelPredicate<T>
 	): Promise<[T, OpType.INSERT | OpType.UPDATE][]> {
-		console.warn('IN SAVE RN ASYNCSTORAGE');
+		console.warn('IN SAVE RN ADAPTER');
 		const modelConstructor = Object.getPrototypeOf(model)
 			.constructor as PersistentModelConstructor<T>;
 		const storeName = this.getStorenameForModel(modelConstructor);

@@ -20,15 +20,7 @@ import {
 } from '../types';
 import { isModelConstructor, STORAGE, validatePredicate } from '../util';
 import { Adapter } from './adapter';
-import AsyncStorageAdapter from './adapter/asyncstorage';
-import IndexedDBAdapter from './adapter/indexeddb';
-
-const getDefaultAdapter: () => Adapter = () => {
-	return AsyncStorageAdapter;
-	if (process && process.env) {
-		throw new Error('Node is not supported');
-	}
-};
+import getDefaultAdapter from './adapter/getDefaultAdapter';
 
 export type StorageSubscriptionMessage = SubscriptionMessage<any> & {
 	mutator?: Symbol;
